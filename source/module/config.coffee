@@ -1,7 +1,6 @@
 class ConfigX
 
-  data:
-    character: ['']
+  data: {}
   source: 'config.ini'
 
   constructor: ->
@@ -12,11 +11,11 @@ class ConfigX
     # feature
     for key in [
       'autoESkill'
+      'betterElementalVision'
+      'betterJumping'
+      'betterRunning'
       'easySkillTimer'
-      'fastPick'
-      'improvedElementalVision'
-      'improvedJump'
-      'improvedSprint'
+      'fastPickup'
     ]
       @data[key] = @read "feature/enable#{key}", 1
 
