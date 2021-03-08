@@ -1,52 +1,45 @@
-class ClientX
+class ClientX extends EmitterX
 
   height: 0
   isSuspend: false
   width: 0
 
-  constructor: -> @setSize()
+  constructor: ->
+    super()
+    @setSize()
 
   check: ->
 
-    if !@isSuspend and !@isActive()
+    if !@isSuspend and !@checkActive()
       @setPriority 'low'
       @suspend true
-      state.isAttacking = false
+      @emit 'leave'
       return
 
-    if @isSuspend and @isActive()
+    if @isSuspend and @checkActive()
       @setPriority 'normal'
       @suspend false
+      @emit 'enter'
       return
 
-  isActive: ->
-    return WinActive "ahk_exe #{config.data.process}"
+  checkActive: ->
+    return WinActive "ahk_exe #{Config.data.process}"
+
+  point: (input) -> return [
+    @vw input[0]
+    @vh input[1]
+  ]
 
   reset: ->
-
     @setPriority 'normal'
     @resetTimer()
-    @resetKey()
-
-  resetKey: ->
-
-    for key in ['middle', 'right']
-      if $.getState key
-        $.click "#{key}:up"
-
-    for key in [
-      'alt', 'ctrl'
-      'e', 'esc', 'f', 'space', 'w', 'x'
-    ]
-      if $.getState key
-        $.press "#{key}:up"
 
   resetTimer: -> for _timer of timer
     clearTimeout _timer
 
   setSize: ->
 
-    name = "ahk_exe #{config.data.process}"
+    name = "ahk_exe #{Config.data.process}"
     `WinGetPos, __x__, __y__, __width__, __height__, % name`
 
     @width = __width__
@@ -59,7 +52,6 @@ class ClientX
       @isSuspend = true
       $.suspend true
       @resetTimer()
-      @resetKey()
       return
 
     unless isSuspend
@@ -69,8 +61,16 @@ class ClientX
       return
 
   setPriority: (level) ->
-    `Process, Priority, % config.data.process, % level`
+    `Process, Priority, % Config.data.process, % level`
 
   vh: (n) -> return Math.round @height * n * 0.01
 
   vw: (n) -> return Math.round @width * n * 0.01
+
+# execute
+
+client = new ClientX()
+
+ticker.on 'change', (tick) ->
+  unless Mod tick, 200
+    client.check()

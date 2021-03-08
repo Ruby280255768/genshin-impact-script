@@ -14,7 +14,7 @@ A script based on `ahk` that provides a few small features for Genshin Impact pl
 
 ### Better running/jumping
 
-Use better running when long pressing `right click`. Automatically unfold Wings of Wind when jumping.
+Use better running when long pressing `right click`. Automatically open wind glider when jumping.
 
 ### Easy skill timer
 
@@ -38,13 +38,11 @@ Set the process priority to the lowest when the game window is inactive.
 
 ## Usage
 
-First, go to [ahk official website](https://www.autohotkey.com/) to install `ahk`(1.33+, please don't use v2 version).
+First, go to [ahk official website](https://www.autohotkey.com/) and install `ahk` (1.33+, do not use v2 version).
 
-Then, put the [script](./source/index.ahk) and [config file](./source/config.ini) to the same directory and double-click to open the script (you will be prompted whether to apply administrator privileges, select Apply).
+Then, download the [zip file](https://github.com/phonowell/genshin-impact-script/releases/download/0.0.2/Genshin_Impact_Script_0.0.2.zip) and unzip it.
 
-Next, just open the game.
-
-Finally, press `Alt + f4` to kill the script.
+Finally, after opening the game, go to the unzipped folder and double-click `index.ahk` in it (you will be prompted whether to apply administrator privileges, select Apply).
 
 ### Easy Skill Timer
 
@@ -52,7 +50,7 @@ Before use this feature, you need to identify the characters in your team. Press
 
 When you change the team lineup, you need to re-identify them.
 
-Currently only the following characters are supported.
+Currently only the following characters are supported:
 
 - Amber
 - Barbara
@@ -62,12 +60,14 @@ Currently only the following characters are supported.
 - Diona
 - Fischl
 - Ganyu
+- Hu Tao
 - Jean
 - Kaeya
 - Klee
 - Keqing
 - Lisa
 - Mona
+- Ningguang
 - Noelle
 - Qiqi
 - Razor
@@ -80,20 +80,41 @@ Currently only the following characters are supported.
 - Xinyan
 - Zhongli
 
-Future characters to be added for support.
+Future characters to be added for support:
 
 - Aether
 - Albedo
 - Ayaka
 - Diluc
-- Hu Tao
 - Lumine
-- Ningguang
 - Rosaria
 
 ## Configuration
 
-After editing and saving the configuration file, press `ctrl + f5` to make it work instantly.
+Refer to the [function configuration](./source/config.ini) for details.
+
+When finished editing, press `ctrl + f5` to take effect instantly.
+
+### Characters
+
+Add the chanacter name at the bottom of the file to enable character-specific configuration.
+
+For Example:
+
+```ini
+[zhongli]
+type-apr = 3
+```
+
+#### type-apr
+
+The type of appearance. Can be one of the following values.
+
+- `0` Does nothing, i.e. the game's default behavior
+- `1` Default value of script; Uses the corresponding E skill depending on the length of time the number key is pressed
+- `2` Uses E skill (tap)
+- `3` Uses E skill (hold)
+- `4` Uses Q skill
 
 ## Note
 

@@ -1,27 +1,18 @@
-class TickerX
+class TickerX extends EmitterX
 
-  interval: 200
-  listBus: []
+  interval: 100
   max: 1e3
   tick: 0
 
-  # ---
+  constructor: ->
+    super()
+    setInterval @update, @interval
 
-  constructor: -> setInterval @change, @interval
-
-  change: ->
-
+  update: ->
     @tick = @tick + @interval
-
-    for fn in @listBus
-      fn @tick
-
+    @emit 'change', @tick
     if @tick >= @max
       @tick = 0
 
-  on: (event, fn) ->
-
-    unless event == 'change'
-      return
-
-    @listBus.Push fn
+# execute
+ticker = new TickerX()

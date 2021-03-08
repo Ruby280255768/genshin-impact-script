@@ -1,125 +1,32 @@
-Character =
+import __character__ from '../../data/character.yaml'
 
-  aether:
-    color: 0
+class CharacterX
 
-  albedo:
-    color: 0
+  data: __character__
 
-  amber:
-    color: 0x5C4C63
-    cd: [15, 15]
+  constructor: ->
 
-  ayaka:
-    color: 0
+    for name, char of @data
 
-  barbara:
-    color: 0xE2E0D4
-    cd: [32, 32]
+      # cd
 
-  beidou:
-    color: 0x4C332E
-    cd: [7.5, 7.5]
+      unless char.cd
+        char.cd = [0, 0]
 
-  bennett:
-    color: 0xFBF3CF
-    cd: [5, 10]
+      if ($.type char.cd) == 'number'
+        char.cd = [char.cd, char.cd]
 
-  chongyun:
-    color: 0xCDEFDF
-    cd: [15, 15]
+      # color
 
-  diluc:
-    color: 0
+      # type-apr
+      char.typeApr = Config.read "#{name}/type-apr", 1
 
-  diona:
-    color: 0xFED6CE
-    cd: [6, 15]
+      # type-atk
+      char.typeAtk = Config.read "#{name}/type-atk", 1
 
-  fischl:
-    color: 0xFFE3A9
-    cd: [25, 25]
+      # type-e
+      unless char.typeE
+        char.typeE = 0
 
-  ganyu:
-    color: 0xBDCCC5
-    cd: [10, 10]
-
-  hutao:
-    color: 0
-
-  jean:
-    color: 0xE6D0A3
-    cd: [6, 6]
-
-  kaeya:
-    color: 0x394E64
-    cd: [6, 6]
-
-  keqing:
-    color: 0xBEB1C3
-    cd: [7.5, 7.5]
-
-  klee:
-    color: 0xBE3A0E
-    cd: [20, 20]
-
-  lisa:
-    color: 0xB6A69B
-    cd: [1, 16]
-
-  lumine:
-    color: 0
-
-  mona:
-    color: 0x5A5064
-    CD: [12, 12]
-
-  ningguang:
-    color: 0
-
-  noelle:
-    color: 0xDED8D2
-    cd: [24, 24]
-
-  qiqi:
-    color: 0xE1DBDE
-    cd: [30, 30]
-
-  rezor:
-    color: 0xC6CAC6
-    cd: [6, 10]
-
-  rosaria:
-    color: 0
-
-  sucrose:
-    color: 0xD4E9CC
-    cd: [15, 15]
-
-  tartaglia:
-    color: 0xE08D3F
-    cd: [6, 6]
-
-  venti:
-    color: 0x5D917E
-    cd: [6, 15]
-
-  xiangling:
-    color: 0x22337B
-    cd: [12, 12]
-
-  xiao:
-    color: 0x39483E
-    cd: [10, 10]
-
-  xingqiu:
-    color: 0x488892
-    cd: [21, 21]
-
-  xinyan:
-    color: 0x503B40
-    cd: [18, 18]
-
-  zhongli:
-    color: 0x4B3525
-    cd: [4, 12]
+# execute
+Character = new CharacterX()
